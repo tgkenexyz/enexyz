@@ -93,12 +93,12 @@ public final class MainActivity extends Activity {
         setContentView(scroll);
 
         add("FLY // OPTIMIZER", 27, accent, true);
-        add("POCO / HyperOS 3 • без ROOT • версия 0.2", 13, secondary, false);
+        add("Android " + Build.VERSION.RELEASE + " • без ROOT • версия 0.3", 13, secondary, false);
         add("Диагностика", 19, fg, true);
         diagnostics = add("", 13, fg, false);
         button("Обновить диагностику", this::diagnose);
         add("ИГРОВОЙ ПРОФИЛЬ", 19, fg, true);
-        add("Экран POCO F6 Pro заводски до 120 Гц. Цель — ровное время кадра. 120 и 60 FPS — пробные ограничения Android Game Mode, а не разгон. Игра или прошивка могут проигнорировать профиль.", 13, secondary, false);
+        add("Устройство по системным данным: " + deviceLabel() + ". Цель — уменьшить скачки времени кадра. Профили 120 и 60 FPS только ограничивают кадры, если Android Game Mode и игра поддерживают это. Термозащита не изменяется.", 13, secondary, false);
 
         add("Выбери игру", 14, fg, true);
         games = new Spinner(this);
@@ -160,6 +160,12 @@ public final class MainActivity extends Activity {
         diagnose();
     }
 
+    private String deviceLabel() {
+        String device = Build.DEVICE == null ? "" : Build.DEVICE.toLowerCase(Locale.ROOT);
+        if ("peridot".equals(device)) return "POCO F6 (peridot / Snapdragon 8s Gen 3), 120 Гц";
+        if ("vermeer".equals(device)) return "POCO F6 Pro (vermeer / Snapdragon 8 Gen 2), 120 Гц";
+        return Build.MANUFACTURER + " " + Build.MODEL + " (" + Build.DEVICE + "); проверь модель";
+    }
     private int dp(int n) { return Math.round(getResources().getDisplayMetrics().density * n); }
     private TextView add(String s, int size, int color, boolean bold) {
         TextView t = new TextView(this);
