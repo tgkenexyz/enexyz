@@ -226,7 +226,7 @@ public final class MainActivity extends Activity {
             } catch (ExecutionException | InterruptedException e) {
                 Toast.makeText(this, "Не удалось запустить аудиодвижок", Toast.LENGTH_LONG).show();
             }
-        }, Runnable::run);
+        }, ContextCompat.getMainExecutor(this));
     }
 
     private void askNotificationPermission() {
